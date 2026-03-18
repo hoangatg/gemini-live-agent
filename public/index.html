@@ -7,9 +7,9 @@
   <meta name="description" content="GemLive Interview: An immersive AI-powered mock interview platform with multi-agent coaching, powered by Google Gemini.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='%2310b981'/><path d='M50 25L62 45H38z' fill='white'/><circle cx='50' cy='60' r='8' fill='white'/></svg>">
 </head>
 <body>
   <!-- Animated background -->
@@ -23,7 +23,7 @@
     <header class="header">
       <div class="header-left">
         <div class="logo">
-          <div class="logo-icon">🎯</div>
+          <div class="logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
           <div class="logo-text">
             <h1>GemLive<span class="accent">Interview</span></h1>
             <span class="tagline">AI Mock Interview Coach</span>
@@ -99,7 +99,7 @@
           <div class="powered-by">
             <span>Powered by</span>
             <strong>Gemini 2.5 Flash</strong>
-            <span class="gemini-badge">✦</span>
+            <span class="gemini-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z"/></svg></span>
           </div>
         </div>
       </aside>
@@ -109,7 +109,7 @@
         <!-- Agent Info Bar -->
         <div class="agent-bar" id="agent-bar">
           <div class="agent-bar-info">
-            <div class="agent-bar-icon" id="agent-bar-icon">🎭</div>
+            <div class="agent-bar-icon" id="agent-bar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="9" cy="10" r="1.5" fill="currentColor"/><circle cx="15" cy="10" r="1.5" fill="currentColor"/><path d="M9 15c1 1 5 1 6 0"/></svg></div>
             <div class="agent-bar-details">
               <h2 id="agent-bar-name">Interviewer</h2>
               <span id="agent-bar-desc">Conducts realistic mock interviews</span>
@@ -125,39 +125,39 @@
           <div class="messages" id="messages">
             <!-- Welcome Screen -->
             <div class="welcome-screen" id="welcome-screen">
-              <div class="welcome-icon">🎯</div>
+              <div class="welcome-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
               <h2>Welcome to <span class="gradient-text">GemLive Interview</span></h2>
               <p>Your AI-powered interview coach. Choose a role to start practicing, or upload your resume for personalized feedback.</p>
 
               <h3 class="section-title">Choose a Position</h3>
               <div class="role-grid" id="role-grid">
                 <button class="role-card" data-role="Software Engineer" data-company="Google">
-                  <span class="role-icon">💻</span>
+                  <span class="role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
                   <span class="role-name">Software Engineer</span>
                   <span class="role-company">Tech Company</span>
                 </button>
                 <button class="role-card" data-role="Data Scientist" data-company="AI Startup">
-                  <span class="role-icon">📊</span>
+                  <span class="role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span>
                   <span class="role-name">Data Scientist</span>
                   <span class="role-company">AI Startup</span>
                 </button>
                 <button class="role-card" data-role="Product Manager" data-company="Tech Company">
-                  <span class="role-icon">🚀</span>
+                  <span class="role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
                   <span class="role-name">Product Manager</span>
                   <span class="role-company">Tech Company</span>
                 </button>
                 <button class="role-card" data-role="UX Designer" data-company="Design Agency">
-                  <span class="role-icon">🎨</span>
+                  <span class="role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 0 20c1.1 0 2-.9 2-2V16"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/><circle cx="12" cy="6" r="1.5" fill="currentColor"/><circle cx="16" cy="8" r="1.5" fill="currentColor"/><circle cx="8" cy="14" r="1.5" fill="currentColor"/></svg></span>
                   <span class="role-name">UX Designer</span>
                   <span class="role-company">Design Agency</span>
                 </button>
                 <button class="role-card" data-role="DevOps Engineer" data-company="Cloud Company">
-                  <span class="role-icon">☁️</span>
+                  <span class="role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></span>
                   <span class="role-name">DevOps Engineer</span>
                   <span class="role-company">Cloud Company</span>
                 </button>
                 <button class="role-card" data-role="Marketing Manager" data-company="E-commerce">
-                  <span class="role-icon">📈</span>
+                  <span class="role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
                   <span class="role-name">Marketing Manager</span>
                   <span class="role-company">E-commerce</span>
                 </button>
@@ -167,11 +167,11 @@
 
               <div class="quick-actions">
                 <button class="quick-action" id="btn-upload-resume">
-                  <span class="qa-icon">📄</span>
+                  <span class="qa-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
                   <span>Upload Resume for Analysis</span>
                 </button>
                 <button class="quick-action" data-prompt="Give me tips for acing a technical interview at a FAANG company">
-                  <span class="qa-icon">💡</span>
+                  <span class="qa-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
                   <span>Interview Tips & Strategies</span>
                 </button>
               </div>
@@ -224,7 +224,7 @@
       </div>
       <div class="modal-actions">
         <button class="btn btn-secondary" id="btn-cancel-img">Cancel</button>
-        <button class="btn btn-primary" id="btn-confirm-img">📄 Analyze Resume</button>
+        <button class="btn btn-primary" id="btn-confirm-img">Analyze resume</button>
       </div>
     </div>
   </div>
@@ -234,16 +234,16 @@
     <div class="modal-backdrop"></div>
     <div class="modal-content apikey-modal-content">
       <div class="apikey-header">
-        <div class="logo-icon logo-icon-large">🎯</div>
+        <div class="logo-icon logo-icon-large"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
         <h3>Welcome to GemLive Interview</h3>
         <p>AI-powered mock interview coach. Enter your Gemini API key to start. <a href="https://aistudio.google.com/apikey" target="_blank">Get API Key →</a></p>
       </div>
       <div class="apikey-form">
         <input type="password" id="apikey-input" placeholder="AIzaSy..." class="apikey-input">
-        <button class="btn btn-primary btn-full" id="btn-save-apikey">🚀 Start Practicing</button>
+        <button class="btn btn-primary btn-full" id="btn-save-apikey">Start practicing</button>
       </div>
       <div class="apikey-footer">
-        <span>🔒 Your key is stored locally and never sent to our servers</span>
+        <span>Your key is stored locally and never sent to our servers</span>
       </div>
     </div>
   </div>
@@ -253,14 +253,14 @@
     <div class="modal-backdrop"></div>
     <div class="modal-content score-modal-content">
       <div class="score-header">
-        <h3>📊 Interview Performance Report</h3>
+        <h3>Interview performance report</h3>
       </div>
       <div class="score-body" id="score-body">
         <!-- Filled by JS -->
       </div>
       <div class="modal-actions">
         <button class="btn btn-secondary" id="btn-close-score">Close</button>
-        <button class="btn btn-primary" id="btn-new-interview">🔄 New Interview</button>
+        <button class="btn btn-primary" id="btn-new-interview">New interview</button>
       </div>
     </div>
   </div>
