@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Video Converter</title>
+<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.js"></script>
+<script src="https://unpkg.com/@ffmpeg/util@0.12.1/dist/umd/util.js"></script>
+<style>
+body { font-family: Arial; background: #1a1a2e; color: #eee; display: flex; flex-direction: column; align-items: center; padding: 40px; }
+h1 { color: #00d4ff; }
+#status { margin: 20px; padding: 15px; background: #16213e; border-radius: 8px; min-width: 500px; text-align: center; font-size: 18px; }
+button { padding: 12px 24px; background: #00d4ff; color: #000; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin: 10px; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+.upload-area { border: 2px dashed #00d4ff; border-radius: 12px; padding: 40px; margin: 20px; cursor: pointer; text-align: center; min-width: 400px; }
+#log { background: #0d1117; padding: 15px; border-radius: 8px; width: 600px; max-height: 300px; overflow: auto; font-family: monospace; font-size: 12px; white-space: pre-wrap; }
+a.download { display: block; padding: 15px 30px; background: #00d4ff; color: #000; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold; font-size: 18px; margin: 20px; }
+</style>
+</head>
+<body>
+<h1>🎬 WebP → MP4 Converter</h1>
+<p>Upload your .webp recording file to convert to MP4</p>
+
+<div class="upload-area" onclick="document.getElementById('fileInput').click()">
+  <p style="font-size:20px">📁 Click to select WebP file</p>
+  <p style="color:#888">or drag & drop</p>
+  <input type="file" id="fileInput" accept=".webp,.webm" style="display:none">
+</div>
+
+<div id="status">Ready. Select a file to convert.</div>
+<div id="log"></div>
+<div id="downloadArea"></div>
+
+<script>
+const { FFmpeg } = FFmpegWASM;
+const { fetchFile } = FFmpegUtil;
+
+const logEl = document.getElementById('log');
+const statusEl = document.getElementById('status');
+
+function addLog(msg) {
+  logEl.textContent += msg + '\n';
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+document.getElementById('fileInput').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  statusEl.textContent = 'File: ' + file.name + ' (' + (file.size/1024/1024).toFixed(1) + ' MB)';
+  addLog('File selected: ' + file.name);
+  addLog('Size: ' + (file.size/1024/1024).toFixed(1) + ' MB');
+  
+  // Check file header
+  const header = new Uint8Array(await file.slice(0, 12).arrayBuffer());
+  const headerStr = String.fromCharCode(...header);
+  addLog('Header: ' + headerStr);
+  
+  if (headerStr.includes('RIFF') && headerStr.includes('WEBP')) {
+    addLog('Format: Animated WebP (RIFF/WEBP)');
+  } else if (header[0] === 0x1A && header[1] === 0x45 && header[2] === 0xDF && header[3] === 0xA3) {
+    addLog('Format: WebM/Matroska container! Converting as WebM...');
+  } else {
+    addLog('Format: Unknown, will try as-is');
+  }
+  
+  statusEl.textContent = 'Loading FFmpeg WASM (may take a moment)...';
+  addLog('Loading FFmpeg WASM...');
+  
+  try {
+    const ffmpeg = new FFmpeg();
+    ffmpeg.on('log', ({ message }) => {
+      addLog('[ffmpeg] ' + message);
+    });
+    ffmpeg.on('progress', ({ progress, time }) => {
+      statusEl.textContent = 'Converting... ' + Math.round(progress * 100) + '%';
+    });
+    
+    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+    await ffmpeg.load({
+      coreURL: baseURL + '/ffmpeg-core.js',
+      wasmURL: baseURL + '/ffmpeg-core.wasm',
+    });
+    addLog('FFmpeg loaded!');
+    
+    statusEl.textContent = 'Writing file to FFmpeg filesystem...';
+    const inputName = headerStr.includes('RIFF') ? 'input.webp' : 'input.webm';
+    await ffmpeg.writeFile(inputName, await fetchFile(file));
+    addLog('File written as ' + inputName);
+    
+    statusEl.textContent = 'Converting to MP4...';
+    addLog('Starting conversion...');
+    
+    await ffmpeg.exec(['-i', inputName, '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', 'output.mp4']);
+    
+    addLog('Conversion complete! Reading output...');
+    const data = await ffmpeg.readFile('output.mp4');
+    
+    const blob = new Blob([data.buffer], { type: 'video/mp4' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'gemlive_demo.mp4';
+    a.className = 'download';
+    a.textContent = '⬇️ Download MP4 (' + (blob.size/1024/1024).toFixed(1) + ' MB)';
+    document.getElementById('downloadArea').innerHTML = '';
+    document.getElementById('downloadArea').appendChild(a);
+    
+    statusEl.textContent = '✅ Done! Click download below. Size: ' + (blob.size/1024/1024).toFixed(1) + ' MB';
+    document.title = 'CONVERSION_DONE';
+    
+  } catch(e) {
+    addLog('ERROR: ' + e.message);
+    statusEl.textContent = 'Error: ' + e.message;
+    document.title = 'CONVERSION_ERROR';
+  }
+});
+</script>
+</body>
+</html>
